@@ -4,13 +4,17 @@ pipeline {
     stages {
         stage ('initialize') {
             steps {
-                echo "Initialize"
+                bat 'mvn clean package'
+
+                /*for Mac & Linux machine */
+                // sh 'mvn clean package'
                 
                 }
         }
-        stage ('Build') {
-            steps {
-                echo 'Hello World'
+            post{
+                success{
+                  echo 'Now Archiving'
+                  achiveArtifacts artifacts : '**/*.war'
             }
 
         }
